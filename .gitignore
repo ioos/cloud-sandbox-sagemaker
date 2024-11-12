@@ -1,0 +1,11 @@
+.*
+!.git*
+*.log
+dist/
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.lock.*
+*.pem
+*.key
+*/.secret

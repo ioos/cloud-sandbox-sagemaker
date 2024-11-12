@@ -1,0 +1,59 @@
+name: Build and Push Docker Image to ECR on pushing a release tag
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - id: create-version
+        uses: paulhatch/semantic-version@v5.4.0
+        with:
+          # The prefix to use to identify tags
+          tag_prefix: "v"
+          # A string which, if present in a git commit, indicates that a change represents a
+          # major (breaking) change, supports regular expressions wrapped with '/'
+          major_pattern: "(MAJOR)"
+          # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
+          minor_pattern: "(MINOR)"
+          # A string to determine the format of the version output
+          version_format: "${major}.${minor}.${patch}"
+          # Prevents pre-v1.0.0 version from automatically incrementing the major version.
+          # If enabled, when the major version is 0, major releases will be treated as minor and minor as patch. Note that the version_type output is unchanged.
+          enable_prerelease_mode: true
+          # If enabled, diagnostic information will be added to the action output.
+          debug: false
+          # If true, the branch will be used to select the maximum version.
+          version_from_branch: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # role-to-assume: arn:aws:iam::645515465214:role/testioosECRPushRole
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: $${{ secrets.AWS_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+          VERSION: ${{ steps.create-version.outputs.version }}
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:${VERSION} .
+          docker push $REGISTRY/$REPOSITORY:${VERSION}
+          docker tag $REGISTRY/$REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
