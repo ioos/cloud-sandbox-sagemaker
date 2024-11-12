@@ -1,7 +1,11 @@
 # Sagemaker Notebooks for IOOS
 
 
-This repo holds code and actions to produce containers that are configured to IOOS Conda specs available to users of the cloud sandbox as Sagemaker notebooks  (i.e. JupyterHub notebooks) with the [IOOS conda environment])https://ioos.github.io/ioos_code_lab/content/ioos_installation_conda.html).
+This repo holds code and actions to produce containers that are configured to IOOS Conda specs available to users of the cloud sandbox as Sagemaker notebooks  (i.e. JupyterHub notebooks) with the [IOOS conda environment](https://ioos.github.io/ioos_code_lab/content/ioos_installation_conda.html).
+
+This Dockerfile is based on the information found at 
+- [Dockerfile Specifications](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-updated-jl-image-specifications.html)
+- [Custom SageMaker image specifications](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-byoi-specs.html)
 
 # Initialization
 
