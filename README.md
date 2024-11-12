@@ -32,7 +32,12 @@ The GitHub Action will launch when that tag is created and produce a versioned e
 
 # Future Plans
 
+## Alter Means of AWS Credentials
+
+Move to a smoother and more secure means for providing credentials.
+
+See [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) and possibly the [GHA Docs](https://github.com/aws-actions/configure-aws-credentials)
+
 ## CI Testing of the Image
 
-Currently, the only action performed is to release and push a tag to ECR.  It would be nice to have some tests in place that ensure that the
-produced container was valid and valuable.
+Currently, the only action performed is to release and push a tag to ECR.  It would be nice to have some tests in place that ensure that the produced container was valid and valuable.
