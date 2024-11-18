@@ -41,3 +41,11 @@ See [Security best practices in IAM](https://docs.aws.amazon.com/IAM/latest/User
 ## CI Testing of the Image
 
 Currently, the only action performed is to release and push a tag to ECR.  It would be nice to have some tests in place that ensure that the produced container was valid and valuable.
+
+```
+[sagemaker-user@e2e201497a37 ~]$ conda env list
+# conda environments:
+#
+base                     /home/sagemaker-user/miniforge3
+IOOS                     /home/sagemaker-user/miniforge3/envs/IOOS
+```
