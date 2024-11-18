@@ -49,4 +49,11 @@ source ${HOME}/.bashrc
 conda activate IOOS
 python3 -m ipykernel install --user  --name IOOS --display-name "Python (ioos)"
 EOL20
-CMD [ "jupyter" ,"lab", "--ip 0.0.0.0", "--port 8888",   "--ServerApp.base_url='/jupyterlab/default'",   "--ServerApp.token=''",   "--ServerApp.allow_origin='*'" ]
+RUN <<EOL30
+source ${HOME}/.bashrc
+conda config --set auto_activate_base false
+conda activate IOOS
+EOL30
+COPY run_jupyter.sh /home/${NB_USER}/run_jupyter.sh
+# CMD [ "/usr/bin/bash", "jupyter" ,"lab", "--ip 0.0.0.0", "--port 8888",   "--ServerApp.base_url='/jupyterlab/default'",   "--ServerApp.token=''",   "--ServerApp.allow_origin='*'" ]
+CMD [ "./run_jupyter.sh" ]
