@@ -48,4 +48,10 @@ Currently, the only action performed is to release and push a tag to ECR.  It wo
 #
 base                     /home/sagemaker-user/miniforge3
 IOOS                     /home/sagemaker-user/miniforge3/envs/IOOS
+
+[sagemaker-user@0d0b4341c3fa ~]$ jupyter kernelspec list
+Available kernels:
+  ioos       /home/sagemaker-user/.local/share/jupyter/kernels/ioos
+  python3    /usr/local/share/jupyter/kernels/python3
+
 ```

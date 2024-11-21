@@ -44,6 +44,7 @@ echo "  - ipykernel" >> environment.yml
 conda env create --quiet --file=environment.yml
 EOL10
 RUN source ${HOME}/.bashrc && conda init --user bash
+RUN python3 -m pip install jupyter_kernel_gateway
 RUN <<EOL20
 source ${HOME}/.bashrc
 conda activate IOOS
